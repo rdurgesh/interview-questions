@@ -10,11 +10,13 @@ public class Singleton implements Cloneable, Serializable {
 
 	private int value;
 
-	/* Private Constructor prevents any other class from instantiating */
+	/* Private Constructor prevents any
+	 * other class from instantiating
+	 */
 	private Singleton() {
 	}
 
-	/* Prevent cloning */
+	/* Restrict cloning of object */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException();

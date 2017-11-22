@@ -49,4 +49,9 @@ public class SingletonTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testSingletonInMultiThreading(){
+		
+	}
 }
