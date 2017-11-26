@@ -49,9 +49,19 @@ public class SingletonTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
-	public void testSingletonInMultiThreading(){
-		
+	public void testSingletonInMultiThreading() {
+		Runnable task1 = () -> {
+			Singleton instanceOne = Singleton.getInstance();
+			System.out.println("Instance One Value= " + instanceOne.getValue());
+		};
+		Runnable task2 = () -> {
+			Singleton instancetwo = Singleton.getInstance();
+			System.out.println("Instance One Value= " + instancetwo.getValue());
+		};
+
+		new Thread(task1).start();
+		new Thread(task2).start();
 	}
 }

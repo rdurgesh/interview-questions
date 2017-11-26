@@ -3,9 +3,9 @@ package com.java.interview.example;
 public class Permutation {
 
 	public static void main(String[] args) {
-		String str = "AB";
-		int length = str.length();
 		Permutation permutation = new Permutation();
+		String str = "ABC";
+		int length = str.length();
 		permutation.permute(str, 0, length - 1);
 	}
 

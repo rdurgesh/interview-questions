@@ -6,12 +6,14 @@ public class Singleton implements Cloneable, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Singleton instance;
+	private static volatile Singleton instance;
+
+	private static final Object key = new Object();
 
 	private int value;
 
-	/* Private Constructor prevents any
-	 * other class from instantiating
+	/*
+	 * Private Constructor prevents any other class from instantiating
 	 */
 	private Singleton() {
 	}
@@ -26,13 +28,14 @@ public class Singleton implements Cloneable, Serializable {
 		return getInstance();
 	}
 
-	public static synchronized Singleton getInstance() {
-		/* Lazy initialization, creating object on first use */
-		if (instance == null) {
-			synchronized (Singleton.class) {
-				if (instance == null) {
-					instance = new Singleton();
-				}
+	public static Singleton getInstance() {
+		if (null != instance) {
+			return instance;
+		}
+		// Lazy initialization, creating object on first use
+		synchronized (key) {
+			if (instance == null) {
+				instance = new Singleton();
 			}
 		}
 		return instance;
