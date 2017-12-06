@@ -1,35 +1,37 @@
 package com.java8.feature;
 
-public class MyStackImpl {
+import java.lang.reflect.Array;
+
+public class MyStackImpl<T> {
 
 	private int stackSize;
-	private int[] stackArr;
+	private T[] stackArr;
 	private int top;
 
-	public MyStackImpl(int stackSize) {
+	public MyStackImpl(Class<T[]> clazz, int stackSize) {
 		this.stackSize = stackSize;
-		this.stackArr = new int[stackSize];
+		this.stackArr = clazz.cast(Array.newInstance(clazz.getComponentType(), stackSize));
 		this.top = -1;
 	}
 
-	public void push(int entry) throws StackOverFlowException {
+	public void push(T entry) throws StackOverFlowException {
 		if (this.isStackFull()) {
-			throw new StackOverFlowException("Stack is already full. Can not add element.");
+			throw new StackOverFlowException("Stack is already full. Can not add element");
 		}
 		System.out.println("Adding: " + entry);
 		this.stackArr[++top] = entry;
 	}
 
-	public int pop() throws StackUnderFlowException {
+	public T pop() throws StackUnderFlowException {
 		if (this.isStackEmpty()) {
-			throw new StackUnderFlowException("Stack is empty. Can not remove element.");
+			throw new StackUnderFlowException("Stack is empty. Can not remove element");
 		}
-		int entry = this.stackArr[top--];
+		T entry = this.stackArr[top--];
 		System.out.println("Removed entry: " + entry);
 		return entry;
 	}
 
-	public int peek() {
+	public T peek() {
 		return stackArr[top];
 	}
 
@@ -42,7 +44,7 @@ public class MyStackImpl {
 	}
 
 	public static void main(String[] args) {
-		MyStackImpl myStack = new MyStackImpl(5);
+		MyStackImpl<Integer> myStack = new MyStackImpl<Integer>(Integer[].class, 5);
 		try {
 			myStack.push(4);
 			myStack.push(8);
